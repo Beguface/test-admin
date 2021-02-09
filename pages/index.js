@@ -1,6 +1,6 @@
+import { Input } from "@chakra-ui/react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  return <h1>Hola Mundo</h1>;
+  return <Input placeholder="Hola" />;
 }
