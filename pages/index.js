@@ -1,65 +1,74 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
+import Head from "next/head";
+import AvailablePages from "../components/AvailablePages/AvailablePages";
+import { useForm } from "../hooks/useForm";
 
 export default function Home() {
+  const [{ user }, handleInputChange, reset] = useForm({
+    user: "",
+  });
+
+  const toast = useToast();
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    if (user.trim().length <= 1) {
+      return;
+    }
+
+    toast({
+      title: `Account ${user} created.`,
+      description: "We've created your account for you.",
+      status: "success",
+      position: "bottom-left",
+      duration: 9000,
+      isClosable: true,
+    });
+    reset();
+  };
+
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>Test Admin</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Center p="10%" flexDir="column">
+        <Heading as="h1" size="2xl">
+          Create User
+        </Heading>
+        <Box width="100%" mt="10" px={{ base: "2%", sm: "5%", md: "20%" }}>
+          <form onSubmit={handleOnSubmit}>
+            <Input
+              placeholder="Enter a name"
+              name="user"
+              onChange={handleInputChange}
+              value={user}
+            />
+            <Center>
+              <Button colorScheme="blue" type="submit" mt="4">
+                CREATE
+              </Button>
+            </Center>
+          </form>
+        </Box>
+      </Center>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <AvailablePages pages={[1, 2, 3, 4]} />
+    </>
+  );
+}
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+export async function getServerSideProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
 }
