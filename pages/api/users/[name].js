@@ -15,15 +15,19 @@ export default async (req, res) => {
         const lenght = newUser.ops.length;
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
-        res.json({ lenght, data: newUser.ops });
+        res.json({ lenght, data: newUser.ops[0] });
         break;
       }
       case "GET": {
         const user = await db.collection("users").findOne({ name });
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json({ data: user });
-
+        if (user) {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          res.json({ data: user });
+        } else {
+          res.statusCode = 404;
+          res.json({ data: user });
+        }
         break;
       }
     }
