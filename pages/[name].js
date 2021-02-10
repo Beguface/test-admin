@@ -27,9 +27,7 @@ export default userPage;
 export async function getServerSideProps({ query }) {
   let { name } = query;
   try {
-    let req = await fetch(
-      `https://test-admin-frontend.vercel.app/api/users/${name}`
-    );
+    let req = await fetch(`${process.env.APP_URI}/api/users/${name}`);
     let { data } = await req.json();
     return { props: { user: data, statusCode: 200 } };
   } catch (e) {

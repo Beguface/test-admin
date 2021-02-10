@@ -27,7 +27,7 @@ export default function Home({ users }) {
     }
 
     try {
-      const req = await fetch(`/api/users/${user}`, {
+      const req = await fetch(`${process.env.APP_URI}/api/users/${user}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -92,7 +92,7 @@ export default function Home({ users }) {
 
 export async function getServerSideProps({ res }) {
   try {
-    let req = await fetch("https://test-admin-frontend.vercel.app/api/users");
+    let req = await fetch(`${process.env.APP_URI}/api/users`);
     let { data } = await req.json();
 
     return { props: { users: data, statusCode: 200 } };
