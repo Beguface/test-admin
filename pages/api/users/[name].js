@@ -26,7 +26,7 @@ export default async (req, res) => {
           res.json({ data: user });
         } else {
           res.statusCode = 404;
-          res.json({ data: user });
+          res.json({ data: null });
         }
         break;
       }

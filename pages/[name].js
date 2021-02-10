@@ -29,7 +29,11 @@ export async function getServerSideProps({ query }) {
   try {
     let req = await fetch(`${process.env.APP_URI}/api/users/${name}`);
     let { data } = await req.json();
-    return { props: { user: data, statusCode: 200 } };
+    if (data !== null) {
+      return { props: { user: data, statusCode: 200 } };
+    } else {
+      return { props: { user: data, statusCode: 404 } };
+    }
   } catch (e) {
     return {
       props: {
