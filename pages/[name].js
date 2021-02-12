@@ -24,7 +24,8 @@ const userPage = ({ user, statusCode }) => {
         domainUriPrefix: "https://electricbirdcage.page.link",
         link: `https://electricbirdcage.com/${user.name}`,
         androidInfo: {
-          androidPackageName: "com.testadminapp",
+          androidPackageName: "com.testadminapp.android",
+          androidFallbackLink: "com.instagram.android",
         },
         iosInfo: {
           iosBundleId: "com.example.ios",
