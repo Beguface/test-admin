@@ -28,7 +28,8 @@ const userPage = ({ user, statusCode }) => {
           androidFallbackLink: "com.instagram.android",
         },
         iosInfo: {
-          iosBundleId: "com.example.ios",
+          iosBundleId: "com.testadminapp.ios",
+          iosFallbackLink: "com.instagram.ios",
         },
       },
     });
