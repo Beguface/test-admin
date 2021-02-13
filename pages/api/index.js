@@ -1,6 +1,4 @@
 import { connectToDatabase } from "../../utils/mongodb";
-import * as admin from "firebase-admin";
-import serviceAccount from "../../utils/test-admin-f6680-firebase-adminsdk-gcfsb-453d45acad.json";
 
 export default async (req, res) => {
   const {

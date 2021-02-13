@@ -1,6 +1,20 @@
 import { connectToDatabase } from "../../../utils/mongodb";
 import * as admin from "firebase-admin";
 
+if (!admin.apps.length) {
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: process.env.PROJECT_ID,
+        privateKey: process.env.PRIVATE_KEY?.replace(/\\n/g, "\n"),
+        clientEmail: process.env.CLIENT_EMAIL,
+      }),
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default async (req, res) => {
   const {
     body: { user },
@@ -10,20 +24,18 @@ export default async (req, res) => {
     if (req.method === "POST" && user) {
       const tokensDB = await db
         .collection("apptokens")
-        .find({})
-        .sort({ metacritic: -1 })
+        .find()
+        .project({ _id: 0, token: 1 })
         .toArray();
 
-      console.log(tokensDB);
-      let array = [];
-      tokensDB.forEach((element) => {
-        array.push(element.token);
+      let tokens = [];
+
+      tokensDB.forEach(({ token }) => {
+        tokens.push(token);
       });
 
-      console.log(array);
-
       await admin.messaging().sendMulticast({
-        tokens: array,
+        tokens,
         notification: {
           title: `Notification from ${user}`,
           body: `This is a basic notification sent from ${user}`,
@@ -31,7 +43,7 @@ export default async (req, res) => {
       });
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      res.json({ message: "Notification sent" });
+      res.json({ message: `Notification sent to ${user}` });
     }
   } catch (e) {
     console.error(e);
