@@ -24,7 +24,7 @@ const userPage = ({ user, statusCode }) => {
         domainUriPrefix: "https://electricbirdcage.page.link",
         link: `https://test-admin-frontend.vercel.app/${user.name}`,
         androidInfo: {
-          androidPackageName: "com.testadminapp.android",
+          androidPackageName: "com.testadminapp",
           androidFallbackLink:
             "https://play.google.com/store/apps/details?id=com.instagram.android&hl=es_VE&gl=US",
         },
