@@ -22,10 +22,11 @@ const userPage = ({ user, statusCode }) => {
     const { shortLink } = await firebaseDynamicLinks.createLink({
       dynamicLinkInfo: {
         domainUriPrefix: "https://electricbirdcage.page.link",
-        link: `https://electricbirdcage.com/${user.name}`,
+        link: `https://test-admin-frontend.vercel.app/${user.name}`,
         androidInfo: {
           androidPackageName: "com.testadminapp.android",
-          androidFallbackLink: "com.instagram.android",
+          androidFallbackLink:
+            "https://play.google.com/store/apps/details?id=com.instagram.android&hl=es_VE&gl=US",
         },
         iosInfo: {
           iosBundleId: "com.testadminapp.ios",
