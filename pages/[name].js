@@ -29,7 +29,7 @@ const userPage = ({ user, statusCode }) => {
             "https://play.google.com/store/apps/details?id=com.instagram.android&hl=es_VE&gl=US",
         },
         iosInfo: {
-          iosBundleId: "com.testadminapp.ios",
+          iosBundleId: "org.reactjs.native.example.testadmintest",
           iosFallbackLink: "com.instagram.ios",
         },
       },
